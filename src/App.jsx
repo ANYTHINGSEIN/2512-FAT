@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import FAT2025Summary from './components/FAT2025Summary'
 import RegretBubbles from './components/RegretBubbles'
+import CoConstruction2026 from './components/CoConstruction2026'
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('summary'); // summary | regrets | next...
+  const [currentPage, setCurrentPage] = useState('summary'); // summary | regrets | construction | medal
 
   return (
     <>
@@ -12,7 +13,11 @@ function App() {
       )}
       
       {currentPage === 'regrets' && (
-        <RegretBubbles onNext={() => alert('第三页开发中...')} />
+        <RegretBubbles onNext={() => setCurrentPage('construction')} />
+      )}
+
+      {currentPage === 'construction' && (
+        <CoConstruction2026 onNext={() => alert('第四页（勋章）开发中...')} />
       )}
     </>
   )

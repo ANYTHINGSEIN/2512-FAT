@@ -117,7 +117,7 @@ const FAT2025Summary = ({ onNext }) => {
       </div>
       
       {/* Navigation Button */}
-      <div className="px-6 py-4 text-center sticky bottom-0 bg-gradient-to-t from-slate-50 to-transparent pb-8">
+      <div className="px-6 py-4 text-center pb-8">
         <button 
           onClick={onNext}
           className="bg-primary-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-primary-700 transition-colors transform active:scale-95"
