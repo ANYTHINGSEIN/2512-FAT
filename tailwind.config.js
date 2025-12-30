@@ -19,6 +19,7 @@ export default {
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out forwards',
         'float': 'float 6s ease-in-out infinite',
+        'spin-slow': 'spin 20s linear infinite',
       },
       keyframes: {
         fadeIn: {

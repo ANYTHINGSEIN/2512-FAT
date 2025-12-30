@@ -145,21 +145,21 @@ const RegretBubbles = ({ onNext }) => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 relative overflow-hidden flex flex-col">
+    <div className="min-h-screen bg-white relative overflow-hidden flex flex-col">
       {/* Header */}
       <div className="p-6 text-center z-10">
-        <h2 className="text-2xl font-bold text-white drop-shadow-lg">2025 你的遗憾是什么？</h2>
-        <p className="text-primary-200 text-sm mt-2 font-light">点击泡泡，打破焦虑</p>
+        <h2 className="text-2xl font-bold text-slate-900">2025 你的遗憾是什么？</h2>
+        <p className="text-slate-600 text-sm mt-2 font-medium">点击泡泡，打破焦虑</p>
       </div>
 
       {/* Bubbles Container */}
       <div className="flex-grow relative p-4">
         {activeBubbles.length === 0 ? (
            <div className="absolute inset-0 flex items-center justify-center flex-col z-20">
-             <div className="text-xl text-primary-200 font-medium mb-4">遗憾已清空</div>
+             <div className="text-xl text-slate-500 font-medium mb-4">遗憾已清空</div>
              <button 
                onClick={() => setActiveBubbles(REGRET_DATA)}
-               className="text-white underline decoration-primary-400 decoration-2 underline-offset-4"
+               className="text-blue-700 underline decoration-blue-300 decoration-2 underline-offset-4 hover:text-blue-800 font-bold"
              >
                重新回顾
              </button>
@@ -172,19 +172,19 @@ const RegretBubbles = ({ onNext }) => {
                 onClick={(e) => handleBubbleClick(bubble, e)}
                 className={`
                   cursor-pointer
-                  rounded-full flex items-center justify-center text-center p-4 shadow-lg backdrop-blur-sm
+                  rounded-full flex items-center justify-center text-center p-4 shadow-lg
                   transition-all duration-300 hover:scale-110 active:scale-90
                   animate-float select-none
                   ${bubble.level === 1 
-                    ? 'w-36 h-36 bg-gradient-to-br from-primary-500/80 to-purple-600/80 text-white font-bold text-xl border border-white/20 shadow-primary-500/30' 
+                    ? 'w-36 h-36 bg-blue-600 text-white font-bold text-xl' 
                     : bubble.level === 2
-                    ? 'w-28 h-28 bg-gradient-to-br from-blue-400/80 to-cyan-500/80 text-white font-medium text-base border border-white/20 shadow-blue-400/30'
-                    : 'w-24 h-24 bg-gradient-to-br from-slate-600/80 to-slate-500/80 text-slate-100 text-sm border border-white/10'
+                    ? 'w-28 h-28 bg-white text-blue-800 font-bold text-base border-2 border-blue-200'
+                    : 'w-24 h-24 bg-slate-100 text-slate-900 font-medium text-sm border border-slate-300'
                   }
                 `}
                 style={getRandomStyle()}
               >
-                <span className="drop-shadow-md">{bubble.label}</span>
+                <span>{bubble.label}</span>
               </div>
             ))}
           </div>
@@ -195,7 +195,7 @@ const RegretBubbles = ({ onNext }) => {
       <div className="p-6 text-center z-10">
           <button 
             onClick={onNext}
-            className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-3 rounded-full shadow-lg hover:bg-white/20 transition-all active:scale-95"
+            className="bg-blue-600 text-white font-bold px-8 py-3 rounded-full shadow-lg hover:bg-blue-700 transition-all active:scale-95"
           >
             去许愿 2026 -&gt;
           </button>
@@ -203,13 +203,10 @@ const RegretBubbles = ({ onNext }) => {
 
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-900/40 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-900/40 rounded-full blur-[100px]"></div>
-        
-        {/* Particles/Stars (Static for now) */}
-        <div className="absolute top-10 left-20 w-1 h-1 bg-white rounded-full opacity-40 animate-pulse"></div>
-        <div className="absolute bottom-40 right-10 w-2 h-2 bg-white rounded-full opacity-30 animate-pulse delay-700"></div>
-        <div className="absolute top-1/2 left-10 w-1.5 h-1.5 bg-white rounded-full opacity-20 animate-pulse delay-300"></div>
+        {/* Simple geometric shapes instead of blurred gradients */}
+        <div className="absolute top-10 right-10 w-20 h-20 border-4 border-blue-50 rounded-full opacity-50"></div>
+        <div className="absolute bottom-20 left-10 w-32 h-32 border-8 border-slate-50 rounded-full opacity-50"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-slate-100 rounded-full opacity-30"></div>
       </div>
     </div>
   );
