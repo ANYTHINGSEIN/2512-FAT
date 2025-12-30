@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 font-sans antialiased;
+  }
+}
+
+/* Global utility for blue-white theme */
+.text-primary {
+  @apply text-primary-600;
+}
+
+.bg-primary {
+  @apply bg-primary-600;
+}
