@@ -1,17 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useRef } from 'react';
+import html2canvas from 'html2canvas';
 
 const MedalAward = ({ onRestart }) => {
-  const [medalId, setMedalId] = useState('0000');
+  // Initialize with a random ID. Using a function ensures it only runs once.
+  const [medalId] = useState(() => Math.floor(1000 + Math.random() * 9000).toString());
+  const captureRef = useRef(null);
 
-  useEffect(() => {
-    // Simulate fetching a unique medal ID
-    // In a real app, this would come from the previous submission response
-    const randomId = Math.floor(1000 + Math.random() * 9000);
-    setMedalId(randomId.toString());
-  }, []);
+  const handleDownload = async () => {
+    if (!captureRef.current) return;
+    
+    try {
+      const canvas = await html2canvas(captureRef.current, {
+        useCORS: true,
+        scale: 2, // Higher resolution for better quality
+        backgroundColor: '#f8fafc', // match bg-slate-50
+      });
+      
+      const link = document.createElement('a');
+      link.download = `FAT2025-Medal-${medalId}.png`;
+      link.href = canvas.toDataURL('image/png');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Screenshot failed:', error);
+      alert('保存失败，请手动截图');
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col items-center justify-center relative overflow-hidden">
+    <div ref={captureRef} className="min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col items-center justify-center relative overflow-hidden">
       
       {/* Background Effects - Subtle Blue/White */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -58,7 +76,7 @@ const MedalAward = ({ onRestart }) => {
            <p className="text-slate-500 text-sm mb-2 font-medium">您的专属共建编号</p>
            <div className="text-5xl font-mono font-bold text-slate-800 tracking-widest my-2">
              <span className="text-2xl text-slate-400 mr-1">NO.</span>
-             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-indigo-600">{medalId}</span>
+             <span className="text-primary-600">{medalId}</span>
            </div>
            <p className="text-xs text-slate-400 mt-4 bg-slate-50 inline-block px-3 py-1 rounded-full">
              *请截图保存，后续将凭此编号参与摇号抽奖
@@ -67,13 +85,15 @@ const MedalAward = ({ onRestart }) => {
 
         {/* Action Button - Primary Blue */}
         <button 
-          onClick={() => alert('截图功能需原生支持，请手动截图保存~')}
+          data-html2canvas-ignore
+          onClick={handleDownload}
           className="w-full bg-primary-600 text-white font-bold py-4 rounded-full shadow-lg shadow-primary-500/30 hover:bg-primary-700 hover:shadow-primary-600/40 transform active:scale-95 transition-all mb-6"
         >
           保存勋章
         </button>
 
         <button 
+          data-html2canvas-ignore
           onClick={onRestart}
           className="text-slate-500 text-sm hover:text-primary-600 transition-colors font-medium flex items-center gap-1"
         >
